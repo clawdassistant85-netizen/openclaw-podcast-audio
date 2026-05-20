@@ -79,13 +79,13 @@ None. The three viable candidates above are promoted into the six-topic slate fo
 ## Show Notes
 
 ```md
-Codex CLI 0.132.0 and Claude Code CLI 2.1.145 lead today's AgentStack Daily because they move concrete operator surfaces: SDK authentication, resumed automation schemas, live-agent JSON, trace IDs, plugin previews, and permission hardening.
+Codex 0.132 and Claude Code 2.1 lead today's AgentStack Daily because they move concrete operator surfaces: SDK authentication, resumed automation schemas, live-agent JSON, trace IDs, plugin previews, and permission hardening.
 
 [00:00] Opening - start with the changed operator surfaces
 NOVA and ALLOY open on the practical changes. Codex now has first-class Python SDK authentication and easier turn APIs, while Claude Code exposes live session state as JSON and adds agent lineage to traces. This is not just a version-number update. It changes how builders script coding agents, resume automations, observe background work, and catch unsafe shell behavior before it becomes an incident.
 
-[02:30] Release readout - Codex CLI 0.132.0
-Codex 0.132.0's biggest API change is the Python SDK auth surface. A Python client can now handle API-key login, ChatGPT browser login, device-code flows, account inspection, and logout without outsourcing auth state to a CLI wrapper. That matters for notebooks, CI jobs, internal tools, and hosted developer portals that need to start Codex turns as a real programmatic workflow rather than screen-scraping terminal behavior.
+[02:30] Release readout - Codex 0.132
+This Codex release's biggest API change is the Python SDK auth surface. A Python client can now handle API-key login, ChatGPT browser login, device-code flows, account inspection, and logout without outsourcing auth state to a CLI wrapper. That matters for notebooks, CI jobs, internal tools, and hosted developer portals that need to start Codex turns as a real programmatic workflow rather than screen-scraping terminal behavior.
 
 The turn API also gets easier for small automations. Text-only turns can pass a plain string, and handle-based runs now return a richer `TurnResult` with collected items, timing, and usage. That gives agent orchestration code a better return object: what happened, how long it took, what it cost, and what artifacts came back. The practical recipe is straightforward: use the Python SDK for controlled tool entry points, keep the CLI for local repo work, and capture `TurnResult` when you need telemetry or a downstream decision.
 
@@ -95,8 +95,8 @@ Codex also tightens remote and app-server behavior. Remote executor registration
 
 The risk notes are operational. Goal continuations now stop when they hit usage limits or repeated blockers, so agents should burn fewer tokens in a stuck loop. Multi-session TUI replay keeps in-progress MCP calls marked active, and elicitation replies go back to the thread that requested them, which reduces cross-thread confusion. Windows installs get `codex doctor` npm-install detection and MSVC binaries that do not require separate VC++ runtime DLLs. Upgrade tests should cover Python login/logout, a text-only turn, `TurnResult` fields, a schema-constrained resume, remote websocket stability, image-detail preservation, and Windows doctor output if that platform matters.
 
-[17:00] Release readout - Claude Code CLI 2.1.145
-Claude Code 2.1.145 is smaller than 2.1.144, but it lands exactly where operators need it: live inventory, traceability, plugin inspection, and shell safety. `claude agents --json` turns the agent view into a scriptable interface. Status bars, tmux-resurrect flows, session pickers, dashboards, and watchdogs can now query live Claude sessions without parsing terminal UI. The terminal tab title also shows the awaiting-input count, so a background agent that needs human attention is visible outside the TUI.
+[17:00] Release readout - Claude Code 2.1
+This Claude Code update is smaller than the previous patch, but it lands exactly where operators need it: live inventory, traceability, plugin inspection, and shell safety. `claude agents --json` turns the agent view into a scriptable interface. Status bars, tmux-resurrect flows, session pickers, dashboards, and watchdogs can now query live Claude sessions without parsing terminal UI. The terminal tab title also shows the awaiting-input count, so a background agent that needs human attention is visible outside the TUI.
 
 The tracing update is important for teams running background subagents. `claude_code.tool` OpenTelemetry spans now include `agent_id` and `parent_agent_id`, and trace parenting is fixed so background subagent spans nest under the Agent tool span that dispatched them. That gives observability systems a real lineage tree: main session, dispatched agent, nested tool calls, outcome. It is the difference between "Claude used a tool" and "this specific background worker did the slow thing after this parent turn."
 
@@ -167,8 +167,8 @@ The upgrade checklist is practical. For Codex, test Python SDK auth, string turn
 ## Chapters
 
 - **[00:00] Opening - start with the changed operator surfaces**
-- **[02:30] Release readout - Codex CLI 0.132.0**
-- **[17:00] Release readout - Claude Code CLI 2.1.145**
+- **[02:30] Release readout - Codex 0.132**
+- **[17:00] Release readout - Claude Code 2.1**
 - **[29:00] Google Gemini - Gemini 3.5 Flash GA and Managed Agents**
 - **[39:30] Chrome WebMCP - browser-agent tools become explicit**
 - **[48:00] Google AI Studio - Workspace, Antigravity export, and Android generation**

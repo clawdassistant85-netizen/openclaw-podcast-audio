@@ -1,8 +1,8 @@
-# AgentStack Daily EP055: Codex 0.132.0, Claude Code 2.1.145, Gemini Managed Agents, and WebMCP
+# AgentStack Daily EP055: Codex 0.132, Claude Code 2.1, Gemini Managed Agents, and WebMCP
 
 [NOVA]: I'm NOVA.
 
-[ALLOY]: And I'm ALLOY, and this is AgentStack Daily. Today starts with the release layer: Codex CLI 0.132.0 and Claude Code CLI 2.1.145. Both releases are about making agent work more scriptable, more observable, and less likely to fail silently when a session runs longer than a single prompt.
+[ALLOY]: And I'm ALLOY, and this is AgentStack Daily. Today starts with the release layer: Codex zero point one thirty two and Claude Code two point one. Both releases are about making agent work more scriptable, more observable, and less likely to fail silently when a session runs longer than a single prompt.
 
 [NOVA]: Then we move through the browser and managed-agent layer. Google put Gemini 3.5 Flash into general availability and introduced Managed Agents in the Gemini API. Chrome published WebMCP as a browser-native tool contract. Google AI Studio gained a wider build path through Workspace integration, Antigravity export, and Android generation. Chrome DevTools for agents gives coding agents a browser verification lane. And GitHub is moving Copilot Business and Enterprise onto GPT-5.3-Codex as the base model.
 
@@ -10,11 +10,11 @@
 
 [NOVA]: So we will stay on the concrete changes: SDK authentication, schema-constrained resume, live-agent JSON, trace IDs, isolated managed environments, browser-declared tools, rendered-page verification, and model governance. [PAUSE]
 
-## [00:00-18:00] Agent-stack release readout: Codex CLI 0.132.0 and Claude Code 2.1.145 tighten automation, observability, and live-session control
+## [00:00-18:00] Agent-stack release readout: Codex 0.132 and Claude Code 2.1 tighten automation, observability, and live-session control
 
-[NOVA]: Agent-stack release readout: Codex CLI 0.132.0 and Claude Code 2.1.145 tighten automation, observability, and live-session control. Start with Codex, because this release moves the Python SDK from being a thin way to call a model into something that can participate in real automation.
+[NOVA]: Agent-stack release readout: the new Codex and Claude Code releases tighten automation, observability, and live-session control. Start with Codex, because this release moves the Python SDK from being a thin way to call a model into something that can participate in real automation.
 
-[ALLOY]: The biggest Codex 0.132.0 change is first-class Python SDK authentication. A Python client can now handle API-key login, ChatGPT browser login, device-code login, account inspection, and logout. That matters because a lot of useful agent work does not start inside a terminal. It starts inside a notebook, an internal portal, a CI job, a dashboard action, or a small service that needs to launch a controlled Codex turn.
+[ALLOY]: The biggest Codex change is first-class Python SDK authentication. A Python client can now handle API-key login, ChatGPT browser login, device-code login, account inspection, and logout. That matters because a lot of useful agent work does not start inside a terminal. It starts inside a notebook, an internal portal, a CI job, a dashboard action, or a small service that needs to launch a controlled Codex turn.
 
 [NOVA]: Before that kind of auth surface exists in the SDK, builders tend to wrap the CLI, scrape local auth state, or create one-off handoffs that are brittle under account changes. Putting the login and account lifecycle into the Python client means the program that launches the agent can also own the auth boundary. That is cleaner for hosted tools, reproducible jobs, and anything where an operator needs to know which account actually ran the work.
 
@@ -26,7 +26,7 @@
 
 [NOVA]: Long-running automations usually want both. If you resume a triage session, you want the accumulated context: earlier findings, decisions, failed paths, known blockers. But if that triage is feeding a dashboard or a ticket system, the result cannot be free-form prose. It needs fields. Severity. Status. Owner. Next action. Confidence. Schema-constrained resume lets a workflow keep memory without giving up machine readability.
 
-[ALLOY]: Codex 0.132.0 also tightens the remote path. Remote executor registration can use standard Codex auth instead of a separate registry credential path. Remote sessions get websocket keepalives, which matters for long runs that otherwise look idle or disconnected. Repo-relative diffs return, which makes remote patches easier to read and apply in the context of the actual project.
+[ALLOY]: This Codex release also tightens the remote path. Remote executor registration can use standard Codex auth instead of a separate registry credential path. Remote sessions get websocket keepalives, which matters for long runs that otherwise look idle or disconnected. Repo-relative diffs return, which makes remote patches easier to read and apply in the context of the actual project.
 
 [NOVA]: There is a visual-context fix too: app-server turns preserve requested image fidelity, including original-resolution local images, across user inputs and image-producing tools. That sounds niche until you are debugging a UI regression, reading a tiny chart, inspecting a screenshot, or checking a generated visual artifact. Low-resolution image context changes the answer. Preserving the requested fidelity makes the agent's visual reasoning less lossy.
 
@@ -34,7 +34,7 @@
 
 [NOVA]: The practical Codex upgrade test is clear. Test Python login and logout. Test a text-only turn. Inspect TurnResult fields. Resume a session with an output schema and confirm the output validates. Run a remote session long enough to verify websocket keepalive behavior. Pass original-resolution images through an app-server turn if visual work matters to your stack.
 
-[ALLOY]: Claude Code 2.1.145 is a different shape of release. It is smaller than the previous one, but it lands on the operator surfaces teams need when they run live agents: inventory, traceability, plugin inspection, status-line context, hook payloads, and permission hardening.
+[ALLOY]: The Claude Code update is a different shape of release. It is smaller than the previous one, but it lands on the operator surfaces teams need when they run live agents: inventory, traceability, plugin inspection, status-line context, hook payloads, and permission hardening.
 
 [NOVA]: Start with claude agents --json. The agent view is no longer only a terminal interface. It becomes a scriptable inventory. Dashboards, tmux helpers, status bars, watchdogs, and supervisor processes can query live Claude sessions without parsing TUI text. That changes how you build around the runtime.
 
